@@ -11,9 +11,9 @@ class gameobject:
 #interactables
 class interactables(gameobject):
     def __init__(self,identifier,name,description):
-        pass
-    def describe():
-        print(self.description)
+        self.identifier = identifier
+        self.name = name
+        self.description = description
 
 class person(interactables):
     def __init__(self,identifier,name,description,dialog):
