@@ -11,4 +11,5 @@ class Person(interactables):
         pass
 
 class Carrable(interactables):
-    def __init__(self,identifier,name,description)
+    def __init__(self,identifier,name,description):
+        pass
