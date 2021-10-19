@@ -1,5 +1,11 @@
 from game_object import *
+from text_parser import textparser
 
-
-
-gameobjects[0].describe_exits()
+#gameLoop
+while True:
+    print("here")
+    textparser()
+gameobjects['john'].grab('key')
+gameobjects['john'].describe_visible()
+gameobjects['john'].drop('key')
+gameobjects['john'].describe_visible()
