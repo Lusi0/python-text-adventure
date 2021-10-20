@@ -66,6 +66,7 @@ class player(gameobject):
     def move(self, key):
         if key in gameobjects[self.location].conntections:
             self.location = key
+            print("You have moved to {}!".format(key))
 
     def describe_visible(self):
         print("me:")
@@ -85,6 +86,7 @@ class player(gameobject):
         if key in gameobjects[self.location].interactables:
             if type(gameobjects[key]) is carrable:
                 gameobjects[key].attach(self.name)
+                print("you picked up {}".format(key))
             else:
                 print("cannot pick up {}".format(key))
 
@@ -92,6 +94,7 @@ class player(gameobject):
     def drop(self, key):
         if key in self.interactables:
             gameobjects[key].attach(self.location)
+            "you dropped {}".format(key)
 
 gameobjects = {
 "johns room":room("johns room","room in which john lives",["hallway"],["key"]),
