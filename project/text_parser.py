@@ -56,14 +56,14 @@ def textparser(player):
 
     elif playerinput[0].lower() == "help":
         if len(playerinput) == 1:
-            print(""">>Describe <gameobject>
->>WhereAmI
->>ListAll
->>Exits
->>Goto <room>
->>Grab <carrable>
->>Drop <carrable>
->>Help <command>""")
+            print("""Describe <gameobject>
+WhereAmI
+ListAll
+Exits
+Goto <room>
+Grab <carrable>
+Drop <carrable>
+Help <command>""")
         elif playerinput[1].lower() == "describe":
             print("Useage: Describe <gameobject> i.e. Describe John -> John is a cool guy")
         elif playerinput[1].lower() == "whereami":
