@@ -35,7 +35,7 @@ def textparser(player,textparser_):
             print("Not sure what {} is!".format(newstr))
     #describe game_object use describe
 
-    elif playerinput[0].lower() == "listall":
+    elif playerinput[0].lower() == "lookaround":
         player.describe_visible()
     #list game_objects use describe_visible
 
@@ -92,7 +92,7 @@ def textparser(player,textparser_):
         if len(playerinput) == 1:
             print("""Describe <gameobject>
 WhereAmI
-ListAll
+LookAround
 Exits
 Goto <room>
 Grab <carrable>
@@ -104,8 +104,8 @@ NEVER INCLUDE ANGLE BRACKETS IN COMMANDS""")
             print("Useage: Describe <gameobject> i.e. Describe John -> John is a cool guy")
         elif playerinput[1].lower() == "whereami":
             print("Useage: WhereAmI i.e. WhereAmI -> Marys house is a place wher Mary lives")
-        elif playerinput[1].lower() == "listall":
-            print("Useage: ListAll i.e. ListAll -> A list containing all visible game objects")
+        elif playerinput[1].lower() == "lookaround":
+            print("Useage: LookAround i.e. LookAround -> A list containing all visible game objects")
         elif playerinput[1].lower() == "exits":
             print("Useage: Exits i.e. Exits -> Street is a place where cars drive")
         elif playerinput[1].lower() == "goto":

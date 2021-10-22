@@ -17,7 +17,7 @@ class gameobject(A_object):
         self.description = description
 
     def describe(self):
-        print("{} is a {}".format(self.name,self.description))
+        print("{}".format(self.description))
 
 
 #interactables
