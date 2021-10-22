@@ -66,7 +66,7 @@ class room(gameobject):
     def describe_exits(self):
         for room in self.conntections:
             print(gameobjects[room].describe())
-class locked_room(gameobject):
+class locked_room(room):
     def __init__(self,name,description,conntections,interactables,key):
         self.name = name
         self.description = description
