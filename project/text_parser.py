@@ -1,7 +1,28 @@
 from game_object import *
-def textparser(player):
-    playerinput = input(">").split(" ")
-    if playerinput[0].lower() == "describe" and len(playerinput)>1:
+
+
+def textparser(player,textparser_):
+    if textparser_[0] != False:
+        talkto = textparser_[1]
+    if textparser_[0] == True:
+        responses = []
+        for num,response in enumerate(player.talk(talkto)[0]):
+            responses.append(response)
+            print("{}: {}".format(num,response))
+        playerinput = input(">").split(" ")
+        try:
+            playerinput = int(playerinput[0])
+        except:
+            print("Please enter a number!")
+        else:
+            gameobjects[player.talk(talkto)[1]].respond(player,responses[playerinput])
+        if playerinput == 0:
+            return [False,'']
+    else:
+        playerinput = input(">").split(" ")
+    if textparser_[0] == True:
+        pass
+    elif playerinput[0].lower() == "describe" and len(playerinput)>1:
         newstr = ""
         for num,word in enumerate(playerinput[1:]):
             newstr += word
@@ -51,8 +72,21 @@ def textparser(player):
 
     #interactables drop use drop
     elif playerinput[0].lower() == "lusio" and playerinput[1].lower() == "gaming":
-        print("Addicted to short stupid fucking science moron man and should die!")
+        print("Addicted to short stupid science moron man and should leave!")
         print("AHHHHHH THE SWEET SMELL OF SCIENCE!!!!!!!!!!")
+
+
+    elif playerinput[0].lower() == "talk":
+        talkto = ""
+        for num,word in enumerate(playerinput[1:]):
+            talkto += word
+            if num+2 < len(playerinput):
+                talkto += " "
+        return [True,talkto]
+
+
+
+
 
     elif playerinput[0].lower() == "help":
         if len(playerinput) == 1:
@@ -63,7 +97,9 @@ Exits
 Goto <room>
 Grab <carrable>
 Drop <carrable>
-Help <command>""")
+Talk <person>
+Help <command>
+NEVER INCLUDE ANGLE BRACKETS IN COMMANDS""")
         elif playerinput[1].lower() == "describe":
             print("Useage: Describe <gameobject> i.e. Describe John -> John is a cool guy")
         elif playerinput[1].lower() == "whereami":
@@ -78,6 +114,9 @@ Help <command>""")
             print("Useage: Grab <carrable> i.e. Grab Key -> you picked up key")
         elif playerinput[1].lower() == "drop":
             print("Useage: Drop <carrable> i.e. Drop Key -> you dropped key")
+        elif playerinput[1].lower() == "talk":
+            print("Useage: Talk <person> i.e. Talk josh -> opens up dialog options with josh")
         elif playerinput[1].lower() == "help":
             print("Useage: Help i.e. Help -> A list of all commands")
             print("Useage: Help <Command> i.e. Help Help -> A description of the help command")
+    return [False,'']

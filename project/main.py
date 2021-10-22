@@ -1,10 +1,17 @@
 from game_object import *
 from text_parser import textparser
-
 #gameLoop
-print("Your goal is to drop a key in the hallway! Type help to get started.")
+print("talk to kate! type help to begin.")
+textparserreturn = [False,'']
+player = gameobjects['john']
 while True:
-    textparser(gameobjects['john'])
-    if "key" in gameobjects["hallway"].interactables:
+    textparserreturn = textparser(player,textparserreturn)
+
+    #the owen conditingecy
+    if textparserreturn[0] == True:
+        if textparserreturn[1] not in gameobjects or player.location != gameobjects[textparserreturn[1]].location:
+            textparserreturn[0] = False
+            print("I don't know who {} is!".format(textparserreturn[1]))
+    if "1" in gameobjects["john"].knowlage:
         input("You Win! <PRESS ENTER TO EXIT>")
         break
