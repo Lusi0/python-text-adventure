@@ -149,10 +149,10 @@ class player(gameobject):
                 return gameobjects[key].listresponses(self.name)
 
 gameobjects = {
-"johns room":room("johns room","room in which john lives",["hallway"],["key"]),
-"hallway":room("hallway","corridor that connects to different parts of the house",["johns room","kates room"],[]),
-"john":player("john", "representation of you in this world", "johns room", ["0"]),
+"johns room":room("johns room","Johns room is the room where john sleeps",["hallway"],["key"]),
+"hallway":room("hallway","hallway that connects to different parts of the house",["johns room","kates room"],[]),
+"john":player("john", "john is representation of you in this world", "johns room", ["0"]),
 "key":carrable("key", "key to kates room", "johns room"),
-"kates room":locked_room("kates room","room in which kate lives",["hallway"],["kate"],"key"),
+"kates room":locked_room("kates room","kates room is a room in which kate lives",["hallway"],["kate"],"key"),
 "kate":person("kate","person who lives in your home","kates room",[dialog("0","1","who are you?","I am kate, I live in this room!")])
 }
