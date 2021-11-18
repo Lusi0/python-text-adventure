@@ -1,7 +1,11 @@
 from game_object import *
 
 
+
+
+
 def textparser(player,textparser_):
+    
     if textparser_[0] != False:
         talkto = textparser_[1]
     if textparser_[0] == True:
@@ -20,6 +24,16 @@ def textparser(player,textparser_):
             return [False,'']
     else:
         playerinput = input(">").split(" ")
+
+    #the contigency contigency
+    try:
+        #the garden contingecy
+        if playerinput[0] == "goto" and playerinput[1] == "garden" and player.location == "lookout":
+            print("You jump from the balcony and break both of your legs, are you happy now?")
+            player.damage(5)
+    except:
+        pass
+    
     if textparser_[0] == True:
         pass
     elif playerinput[0].lower() == "describe" and len(playerinput)>1:
@@ -53,6 +67,7 @@ def textparser(player,textparser_):
             if num+2 < len(playerinput):
                 newstr += " "
         player.move(newstr)
+        
     #go through use move
     elif playerinput[0].lower() == "grab":
         newstr = ""
@@ -71,18 +86,20 @@ def textparser(player,textparser_):
         player.drop(newstr)
 
     #interactables drop use drop
-    elif playerinput[0].lower() == "lusio" and playerinput[1].lower() == "gaming":
-        print("Addicted to short stupid science moron man and should leave!")
-        print("AHHHHHH THE SWEET SMELL OF SCIENCE!!!!!!!!!!")
+
 
 
     elif playerinput[0].lower() == "talk":
+        
         talkto = ""
         for num,word in enumerate(playerinput[1:]):
             talkto += word
             if num+2 < len(playerinput):
                 talkto += " "
-        return [True,talkto]
+        if type(gameobjects[talkto]) == person or type(gameobjects[talkto]) == combatent:
+            return [True,talkto]
+        else:
+            print("You can't talk to that!")
 
 
 
@@ -90,6 +107,8 @@ def textparser(player,textparser_):
 
     elif playerinput[0].lower() == "help":
         if len(playerinput) == 1:
+            input("This is a text based adventure game.\nThat means that you can type in commands to do things. press <ENTER> to continue")
+            print("You can use the following commands:")
             print("""Describe <gameobject>
 WhereAmI
 LookAround
@@ -103,9 +122,9 @@ NEVER INCLUDE ANGLE BRACKETS IN COMMANDS""")
         elif playerinput[1].lower() == "describe":
             print("Useage: Describe <gameobject> i.e. Describe John -> John is a cool guy")
         elif playerinput[1].lower() == "whereami":
-            print("Useage: WhereAmI i.e. WhereAmI -> Marys house is a place wher Mary lives")
+            print("Useage: WhereAmI i.e. WhereAmI -> your room is full of tapastries")
         elif playerinput[1].lower() == "lookaround":
-            print("Useage: LookAround i.e. LookAround -> A list containing all visible game objects")
+            print("Useage: LookAround i.e. LookAround -> A list of interactable game objects")
         elif playerinput[1].lower() == "exits":
             print("Useage: Exits i.e. Exits -> Street is a place where cars drive")
         elif playerinput[1].lower() == "goto":

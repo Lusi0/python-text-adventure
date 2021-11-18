@@ -1,17 +1,15 @@
-from game_object import *
-from text_parser import textparser
+from text_parser import *
+import art 
 #gameLoop
-print("talk to kate! type help to begin.")
+print(art.text2art("carry the rice", font="colossal"))
+print("delever the rice to the shogun! type help to begin.")
 textparserreturn = [False,'']
-player = gameobjects['john']
+player = gameobjects['me']
 while True:
     textparserreturn = textparser(player,textparserreturn)
 
-    #the owen conditingecy
+    #the owen contingingecy
     if textparserreturn[0] == True:
         if textparserreturn[1] not in gameobjects or player.location != gameobjects[textparserreturn[1]].location:
             textparserreturn[0] = False
             print("I don't know who {} is!".format(textparserreturn[1]))
-    if "1" in gameobjects["john"].knowlage:
-        input("You Win! <PRESS ENTER TO EXIT>")
-        break
