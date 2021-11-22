@@ -72,7 +72,7 @@ class person(interactables):
                 if type(dialog) == dialog_reward:
                     dialog.give_reward(player)
 
-    def move(self, object):
+    def move_(self, object):
         gameobjects[self.location].interactables.remove(self.name)
         gameobjects[object].interactables.append(self.name)
         self.location = object
@@ -80,7 +80,7 @@ class person(interactables):
     def death(self):
         for item in self.interactables:
             gameobjects[item].attach(self.location)
-        self.move("afterlife")
+        self.move_("afterlife")
         print("{} has died".format(self.name))
         
     
@@ -144,16 +144,16 @@ class art_minigame(interactables):
             if "bags of rice" in player.interactables:
                 if score == 10:
                     print("You have received 4 bags of rice!")
-                    gameobjects["bags of rice"].quantity += 4
+                    gameobjects["bags of rice"].change_amount(4)
                 elif score >= 7:
                     print("You have received 3 bags of rice!")
-                    gameobjects["bags of rice"].quantity += 3
+                    gameobjects["bags of rice"].change_amount(3)
                 elif score > 4:
                     print("You have received 2 bags of rice!")
-                    gameobjects["bags of rice"].quantity += 2
+                    gameobjects["bags of rice"].change_amount(2)
                 else:
                     print("You have received 1 bag of rice!")
-                    gameobjects["bags of rice"].quantity += 1
+                    gameobjects["bags of rice"].change_amount(1)
             else:
                 print("You forgot your rice carrier, he can't pay you for the painting!")
             self.played = True
@@ -274,7 +274,7 @@ class combat_room(room):
                 else:
                     print("{} tried to attack you but their attacks bounced off your armor!".format(gameobjects[self.enemy].name))
             if gameobjects[self.enemy].health <= 0:
-                print("You have defeated {}!".format(gameobjects[self.enemy]))
+                print("You have defeated {}!".format(gameobjects[self.enemy].name))
                 gameobjects[self.enemy].death()
                 self.finished = True
                 if player.health < 50:
@@ -448,8 +448,8 @@ gameobjects = {
 "armor":armor("armor","the armor","armory",10),
 "bandit sword":weapon("bandit sword","the bandit sword","bandit",10),
 "bandit armor":armor("bandit armor","the bandit armor","bandit",3),
-"bandit":combatent("bandit","you have the feeling this individual is not worthy of blind trust","outskits of nayoya",[], 30, ["bandit sword", "bandit armor"],2,1),
-"outskirts of nayoya":combat_room("outskirts of nayoya","The newly rebuilt Castle Nagoya stands in the distance. But outside of the walls of the city, shady figures lurk along the trail.",["trail head","city of nayoya"],[],"bandit"),
+"bandit":combatent("bandit","you have the feeling this individual is not worthy of blind trust","outskirts of nayoya",[], 30, ["bandit sword", "bandit armor"],2,1),
+"outskirts of nayoya":combat_room("outskirts of nayoya","The newly rebuilt Castle Nagoya stands in the distance. But outside of the walls of the city, shady figures lurk along the trail.",["trail head","city of nayoya"],["bandit"],"bandit"),
 "bags of rice":stackable("bags of rice","bags of rice","front gate",10),
 "city of nayoya":room("city of nayoya","The city of Nagoya is a large city, with many buildings and a large marketplace",["outskirts of nayoya","marketplace of nayoya", "seaside passage"],["nayoyian guard"]),
 "marketplace of nayoya":room("marketplace of nayoya","The marketplace is a large marketplace, with many shops",["city of nayoya"],["nayoyian swordsmith", "nayoyian armorsmith"]),
@@ -457,7 +457,7 @@ gameobjects = {
 "nayoyian sword":weapon("nayoyian sword","the nayoyian sword","nayoyian swordsmith",12),
 "nayoyian armorsmith":person("nayoyian armorsmith","the nayoyian armorsmith is a person who sells armor","marketplace of nayoya",[dialog_purchase(0,0,"purchase nayoyian armor for 2 bages of rice","right! here you are", "nayoyian armor", 2)], ["nayoyian armor"],5),
 "nayoyian armor":armor("nayoyian armor","the nayoyian armor","nayoyian armorsmith",12),
-"seaside passage":room("seaside passage","You find yourself by a beautiful view of the sea. The waves crash rhythmically against the shore, wild horses graze on the grass just by the shore. You are inspired to make an ink painting of this scene!",["city of nayoya"],["view of ocean"]),
+"seaside passage":room("seaside passage","You find yourself by a beautiful view of the sea. The waves crash rhythmically against the shore, wild horses graze on the grass just by the shore. You are inspired to make an ink painting of this scene!",["city of nayoya", "gate of edo"],["view of ocean"]),
 "view of ocean":art_minigame("view of ocean","art making minigame","seaside passage","the first thing you notice about the view is the fishing vessels in the water",["paint them fighting against the waves","paint them sitting on tranqil water", "paint them being flipped overboard"], "0", "next you look to the great mountain fuji", ["paint it to fill the entire background", "have it tucked nicely under the incoming waves", "don't inculde it as it"], "1","the last thing you see it the way the waves crash", ["have the waves use a pattern to indicate the movement of the foam", "use solid white shapes at the top of the waves to indicate foam", "do not include foam int the final painting"],"0"),
 "gate of edo":room("gate of edo","You have arrived at Edo, proceed to the palace and you will meet the shogun himself!",["seaside passage", "edo palace"],[]),
 "edo palace":room("edo palace","You have arrived at the edo palace, you will meet the shogun here!",["gate of edo"],[]),

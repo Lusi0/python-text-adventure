@@ -11,7 +11,6 @@ while True:
 
     #the owen contingingecy
     if textparserreturn[0] == True:
-        print(textparserreturn[1], textparserreturn[1] in gameobjects, player.location, player.location != gameobjects[textparserreturn[1]].location)
         if textparserreturn[1] not in gameobjects or player.location != gameobjects[textparserreturn[1]].location:
             textparserreturn[0] = False
             print("I don't know who {} is!".format(textparserreturn[1]))
@@ -28,7 +27,7 @@ while True:
             break
 
     #edo palace contingency
-    if player.location == gameobjects['edo palace'].location:
+    if player.location == 'edo palace':
         print("Once inside the palace the personal guard of the shogun greet you and ask them to let them lead you through the palace press enter to coninute")
         input(">")
         print("They lead you through the castle until you make it to the tea room where they stop abruptly signaling for you to go inside press enter to continue")
@@ -37,7 +36,7 @@ while True:
         input(">")
         print("The shogun then says to you, 'My boy, it has been some time since I have seen you, since before the war, look how you have grown. Thank you for coming and bringing the rice, it is hard building a new reign, and we need all the support we can get. press enter to continue'")
         input(">")
-        if "bags of rice" in player.interactables and gameobjects["bags of rice"] > 7:
+        if "bags of rice" in player.interactables and gameobjects["bags of rice"].amount > 7:
             print("you win!, play again?")
             input(">")
             if input(">") == "y":
@@ -47,7 +46,7 @@ while True:
             else:
                 break
         else:
-            print("you lose!, play again?")
+            print("you failed to bring enough bags of rice!, play again?")
             input(">")
             if input(">") == "y":
                 player = gameobjects['me']

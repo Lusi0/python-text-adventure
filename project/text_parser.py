@@ -141,7 +141,7 @@ def textparser(player,textparser_):
         player.hostile_action(newstr)
 
     elif playerinput[0].lower() == "health":
-        player.health()
+        print("Your health is {}".format(player.health))
 
     elif playerinput[0].lower() == "paint":
         newstr = ""
