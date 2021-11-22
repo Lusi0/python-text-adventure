@@ -2,8 +2,6 @@ from game_object import *
 
 
 
-
-
 def textparser(player,textparser_):
     
     if textparser_[0] != False:
@@ -13,18 +11,24 @@ def textparser(player,textparser_):
         for num,response in enumerate(player.talk(talkto)[0]):
             responses.append(response)
             print("{}: {}".format(num,response))
-        playerinput = input(">").split(" ")
+        playerinput = input(">").lower().split(" ")
         try:
             playerinput = int(playerinput[0])
         except:
             print("Please enter a number!")
         else:
-            gameobjects[player.talk(talkto)[1]].respond(player,responses[playerinput])
+            if playerinput in range(len(responses)):
+                gameobjects[player.talk(talkto)[1]].respond(player,responses[playerinput])
+            else:
+                print("Please enter a number!")
         if playerinput == 0:
             return [False,'']
+        else:
+            return [True,talkto]
     else:
-        playerinput = input(">").split(" ")
+        playerinput = input(">").lower().split(" ")
 
+    
     #the contigency contigency
     try:
         #the garden contingecy
@@ -100,10 +104,52 @@ def textparser(player,textparser_):
             return [True,talkto]
         else:
             print("You can't talk to that!")
+    
+    elif playerinput[0].lower() == "devtools":
+        if player.devmode == False:
+            player.devmode = True
+            print("Devmode activated!")
+        else:
+            player.devmode = False
+            print("Devmode deactivated!")
 
+    elif playerinput[0].lower() == "forcemove" and player.devmode == True:
+        newstr = ""
+        for num,word in enumerate(playerinput[1:]):
+            newstr += word
+            if num+2 < len(playerinput):
+                newstr += " "
+        player.forcemove(newstr)
 
+    elif playerinput[0].lower() == "forcegrab" and player.devmode == True:
+        newstr = ""
+        for num,word in enumerate(playerinput[1:]):
+            newstr += word
+            if num+2 < len(playerinput):
+                newstr += " "
+        player.forcegrab(newstr)
 
+    elif playerinput[0].lower() == "inventory":
+        player.inventory()
 
+    elif playerinput[0].lower() == "attack":
+        newstr = ""
+        for num,word in enumerate(playerinput[1:]):
+            newstr += word
+            if num+2 < len(playerinput):
+                newstr += " "
+        player.hostile_action(newstr)
+
+    elif playerinput[0].lower() == "health":
+        player.health()
+
+    elif playerinput[0].lower() == "paint":
+        newstr = ""
+        for num,word in enumerate(playerinput[1:]):
+            newstr += word
+            if num+2 < len(playerinput):
+                newstr += " "
+        player.paint(newstr)
 
     elif playerinput[0].lower() == "help":
         if len(playerinput) == 1:
@@ -118,6 +164,10 @@ Grab <carrable>
 Drop <carrable>
 Talk <person>
 Help <command>
+Attack <person>
+Inventory
+Health
+paint
 NEVER INCLUDE ANGLE BRACKETS IN COMMANDS""")
         elif playerinput[1].lower() == "describe":
             print("Useage: Describe <gameobject> i.e. Describe John -> John is a cool guy")
@@ -135,6 +185,14 @@ NEVER INCLUDE ANGLE BRACKETS IN COMMANDS""")
             print("Useage: Drop <carrable> i.e. Drop Key -> you dropped key")
         elif playerinput[1].lower() == "talk":
             print("Useage: Talk <person> i.e. Talk josh -> opens up dialog options with josh")
+        elif playerinput[1].lower() == "inventory":
+            print("Useage: Inventory i.e. Inventory -> your inventory")
+        elif playerinput[1].lower() == "attack":
+            print("Useage: Attack <person> i.e. Attack josh -> attacks josh")
+        elif playerinput[1].lower() == "health":
+            print("Useage: Health i.e. Health -> your health")
+        elif playerinput[1].lower() == "paint":
+            print("Useage: Paint -> start a painting minigame")
         elif playerinput[1].lower() == "help":
             print("Useage: Help i.e. Help -> A list of all commands")
             print("Useage: Help <Command> i.e. Help Help -> A description of the help command")
